@@ -84,11 +84,12 @@ def make_multiple_cutouts(image, sky_coords, size=61):
 
 
 # Define the image file path
-image_file = '/Users/ddong/Artifact_rejection/Artifact_rejection_test_set/images/VLASS2.2.ql.T01t38.J183232-383000.10.2048.v1.I.iter1.image.pbcor.tt0.subim.fits'
+image_file = './test_data/VLASS2.2.ql.T01t38.J183232-383000.10.2048.v1.I.iter1.image.pbcor.tt0.subim.fits'
 
-# Define sky coordinates
+# Define sky coordinates (one coordinate around a bright source, one on the edge of the image, and one off the image)
 ra_list = ['18h32m02s', '18h29m54s', '18h39m54s']
 dec_list = ['-38d30m31s', '-38d26m30s', '-38d26m30s']
+descriptions = ['bright source', 'edge of image', 'not contained in image']
 
 # Convert to SkyCoord objects
 sky_coords = SkyCoord(ra=ra_list, dec=dec_list, frame='icrs')
@@ -101,7 +102,7 @@ for i, cutout in enumerate(cutouts):
     plt.figure(figsize=(6, 6))
     plt.imshow(cutout, origin='lower', cmap='gray', interpolation='nearest')
     plt.colorbar(label='Intensity')
-    plt.title(f'Cutout {i+1}: RA={ra_list[i]}, Dec={dec_list[i]}')
+    plt.title(f'{descriptions[i]}\n RA={ra_list[i]}, Dec={dec_list[i]}')
     plt.xlabel('Pixel X')
     plt.ylabel('Pixel Y')
     plt.show()
